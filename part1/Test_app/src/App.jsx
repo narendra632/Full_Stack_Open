@@ -1,40 +1,74 @@
-//Another component 
-const Hello = () => {
-  return (
-    <div>
-      <p>Hello form another component</p>
-    </div>
-  )
-}
+// //Another component 
+// const Hello = ({name, age}) => {
+  
+//   const bornYear = () => new Date().getFullYear() - age
+//   return (
+//     <div>
+//       <p>Hello {name}, you are {age} years old.</p>
+//       <p>So you were probably born in {bornYear()}</p>
+//     </div>
+//   )
+// }
 
-const Propy = (props) => {
-  return (
-    <>
-      <p>Hello form {props.name} component. I am {props.age} years old.</p>
-    </>
-  )
-}
+// const Propy = (props) => {
+//   return (
+//     <>
+//       <p>Hello form {props.name} component. I am {props.age} years old.</p>
+//     </>
+//   )
+// }
+
+// const App = (props) => {
+
+//   const now = new Date()
+//   const age = 5
+//   const name = "Peter"
+
+//   const {counter} = props
+
+//   return (
+//     <div>
+//       <Hello name="Maya" age={26 +10}/>
+//       <Propy name={name} age={age}/>
+//       <p>Hello world it is {now.toString()}</p>
+
+//       <p>{counter}</p>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+import { useState } from "react";
+
+const Display = ({counter}) => <div>{counter}</div>
+
+
+const Button = ({onClick,text}) => <button onClick={onClick}>{text}</button>
 
 
 const App = () => {
+  const [counter, setCounter] = useState(0)
 
-  const now = new Date()
-  const a = 100
-  const b = 420
-  console.log(now, a+b)
-  const age = 5
-  const name = "BigPropy"
+  const increaseByOne = () => setCounter(counter +1)
+  const decreaseByOne = () => setCounter(counter -1)
+  const setToZero = () => setCounter(0)
+
+
+  // setTimeout(
+  //   () => setCounter(counter + 1),
+  //   1000
+  // )
 
   return (
     <div>
-      <Hello/>
-      <Propy name="Propy" age={age}/>
-      <Propy name={name} age={5+10}/>
-      <p>Hello world it is {now.toString()}</p>
-      <p>
-        {a} plus {b} is {a + b}
-      </p>
+      <Display counter={counter}/>
+      <Button onClick={increaseByOne} text='plus'/>
+      <Button onClick={decreaseByOne} text='minus'/>
+      <Button onClick={setToZero} text='zero'/>
     </div>
+
   )
 }
 
