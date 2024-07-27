@@ -8,6 +8,10 @@
 5) The data can be passed to components using props. you define props in the component and use the argument passed with props when using the components to pass the props values. We can pass multiple values of props.
 6) Official name of JS standard is ECMAScript. latest version is ES14. Most browsers dont support all feature of ECMA so Babal is used to transpile JS.
 7) Since we are using latest react version with hooks we dont need to use objects with methods and classes. How cool is that.
+8) Changing state has to always be done by setting the state to a new object.
+9) Never mutate the state of the components directly, ex using push or direct increments.
+10) State updates in the react happens asyncronously, i.e not immediately.
+11) Never define a component within a component.
 
 ## All commands used
 
