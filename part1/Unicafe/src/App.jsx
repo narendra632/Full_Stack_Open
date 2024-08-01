@@ -6,6 +6,15 @@ const Button = (props) => {
   )
 }
 
+const StatisticLine = (props) => {
+  return (
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
+  )
+}
+
 const Statistics = (props) => {
   if (props.setAll === 0) {
     return (
@@ -16,14 +25,16 @@ const Statistics = (props) => {
   }
 
   return (
-    <>
-      Good: {props.sGood} <br/>
-      Neutral: {props.sNeutral} <br/>
-      Bad: {props.sBad} <br/>
-      All: {props.setAll} <br/>
-      Average: {props.setAvg} <br/>
-      Positive: {props.setPositive}%
-    </>
+    <table>
+      <tbody>
+        <StatisticLine text='Good' value={props.sGood} />
+        <StatisticLine text='Neutral' value={props.sNeutral} />
+        <StatisticLine text='Bad' value={props.sBad} />
+        <StatisticLine text='All' value={props.setAll} />
+        <StatisticLine text='Average: ' value={props.setAvg} />
+        <StatisticLine text='Positive: ' value={props.setPositive + ' %'} />
+      </tbody>
+    </table>
   )
 }
 
