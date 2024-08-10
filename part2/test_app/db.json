@@ -8,7 +8,7 @@
     {
       "id": "2",
       "content": "Browser can execute only JavaScript",
-      "important": true
+      "important": false
     },
     {
       "id": "3",
@@ -18,7 +18,7 @@
     {
       "id": "d5a2",
       "content": "This is even text",
-      "important": false
+      "important": true
     },
     {
       "id": "0fc1",
