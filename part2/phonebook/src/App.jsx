@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Form from './components/Form'
-import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -10,11 +10,10 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise done')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   },[])
 
@@ -44,10 +43,25 @@ const App = () => {
         name: newName,
         number: newPhone
       }
-      setPersons(persons.concat(nameObject))
+      personService
+        .create(nameObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+        })
     }
     setNewName('')
     setNewPhone('')
+  }
+
+  const handleDelete = (id) => {
+    const person = persons.find(p => p.id === id)
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService
+        .pdelete(id)
+        .then(() => {
+          setPersons(persons.filter(p => p.id !== id))
+        })
+    }
   }
 
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
@@ -70,7 +84,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       {filteredPersons.map(person => 
-        <div key={person.name}>{person.name}-{person.number}</div>
+        <div key={person.name}>{person.name}-{person.number} <button onClick={() => handleDelete(person.id)}>delete</button></div> 
       )}
     </div>
   )
