@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Form from './components/Form'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [message, setMessage] = useState({ type: null, content: null })
 
   useEffect(() => {
     personService
@@ -32,7 +34,7 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
-  const addNum = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
 
     if (persons.find(person => person.name.toLowerCase() === newName.toLowerCase())) {
@@ -45,6 +47,8 @@ const App = () => {
           .updateNumber(person.id, changedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+            setMessage({ type: 'success', content: `Updated ${newName}` })
+            clearNotification()
           })
       }
     }
@@ -57,6 +61,8 @@ const App = () => {
         .create(nameObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setMessage({ type: 'success', content: `Added ${newName}` })
+          clearNotification()
         })
     }
     setNewName('')
@@ -70,8 +76,21 @@ const App = () => {
         .pdelete(id)
         .then(() => {
           setPersons(persons.filter(p => p.id !== id))
+
+          setMessage({ type: 'success', content: `Deleted ${person.name}` })
+          clearNotification()
+        })
+        .catch(error => {
+          setMessage({ type: 'error', content: `Information of ${person.name} has already been removed from server` })
+          clearNotification()
         })
     }
+  }
+
+  const clearNotification = () => {
+    setTimeout(() => {
+      setMessage({ type: null, content: null })
+    }, 5000)
   }
 
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
@@ -80,12 +99,14 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
+      <Notification message={message} />
+
       <Filter filter={newFilter} onFilterC={handleFilterChange} />
 
       <h2>Add a new</h2>
       
       <Form 
-        addNum={addNum} 
+        addNum={handleSubmit} 
         newName={newName} 
         handleNameChange={handleNameChange} 
         newPhone={newPhone} 
