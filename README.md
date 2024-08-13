@@ -21,6 +21,9 @@
 5) We use promised based function fetch to pull data from server, so that processes get executed asyncronously. Axios work like similar to fetch.
 6) Effect hook - Effects let a component connect to and synchronize with external systems. It takes two parameters, first the effect itself and second is used to specify how many times the effect should run.
 
+## part 3
+1) 
+
 
 ## All commands used
 
@@ -39,3 +42,10 @@
 2) npm install json-server --save-dev (here json server installed as dev dependancy)
 3) also add ["server": "json-server -p3001 --watch db.json"] in package.json so that we can directly start server by running npm run server
 
+# To create node template 
+1) npm init 
+
+# useful commands when working in backend
+1) npm install express - to install express as dependency
+2) npm update - to update dependency
+3) npm install - install all the dependencies for a project
