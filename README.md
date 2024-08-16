@@ -22,7 +22,11 @@
 6) Effect hook - Effects let a component connect to and synchronize with external systems. It takes two parameters, first the effect itself and second is used to specify how many times the effect should run.
 
 ## part 3
-1) 
+1) express more pleasing interface to work with built-in http module. It provides better abstraction for general use cases we usually requre to build a backend server.
+2) Nodemon - It automatically restarts your node application whenever it detects any changes in the files in the directory where nodemon is started.
+3) Representational State Transfer(REST): It is an architectural style meant for building scalable web applications. It states that every resource must have a unique URL.
+4) we can perform different operations on resources. ex: GET,POST,DELETE, PUT, PATCH.
+5) You can use tools like postman or plugin like Rest Client to test your operational requests on resources.
 
 
 ## All commands used
@@ -49,3 +53,9 @@
 1) npm install express - to install express as dependency
 2) npm update - to update dependency
 3) npm install - install all the dependencies for a project
+
+
+# To install Nodemon
+1) and save nodemon as dev dependency: npm install --save-dev nodemon
+2) start app with nodemon: node_modules/.bin/nodemon index.js
+3) create shortcurt to start in package.json: "dev": "nodemon index.js"
