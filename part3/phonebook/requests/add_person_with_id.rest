@@ -1,0 +1,26 @@
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Narendra Rathore",
+    "number": "1234567890"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Hero Mast",
+    "number": "0987654321"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Hero Mast",
+    "number": "0987654321"
+}
