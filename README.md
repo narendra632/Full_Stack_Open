@@ -27,6 +27,8 @@
 3) Representational State Transfer(REST): It is an architectural style meant for building scalable web applications. It states that every resource must have a unique URL.
 4) we can perform different operations on resources. ex: GET,POST,DELETE, PUT, PATCH.
 5) You can use tools like postman or plugin like Rest Client to test your operational requests on resources.
+6) For security, requests from other origins are restricted, but we can implement to allow requests from others origins using Cross-Origin Resourse Sharing(CORS) middleware. npm install cors.
+7) To make a build of your frontend optimized for production run command npm run build.
 
 
 ## All commands used
@@ -59,3 +61,6 @@
 1) and save nodemon as dev dependency: npm install --save-dev nodemon
 2) start app with nodemon: node_modules/.bin/nodemon index.js
 3) create shortcurt to start in package.json: "dev": "nodemon index.js"
+
+# To make a production build
+1) npm run build
