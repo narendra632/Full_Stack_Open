@@ -4,3 +4,4 @@ part2/node_modules
 part3/test_app/node_modules
 part3/phonebook/node_modules
 part3/test_app/.env
+part3/phonebook/.env
