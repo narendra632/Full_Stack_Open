@@ -22,5 +22,6 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-  "important": false
+  "content": "Yet another note to mongodb",
+  "important": true
 }
