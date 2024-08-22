@@ -25,3 +25,13 @@ Content-Type: application/json
   "content": "Yet another note to mongodb",
   "important": true
 }
+
+
+###
+PUT http://localhost:3001/api/notes/66c20143d9d9212115805aa7
+Content-Type: application/json
+
+{
+  "content": "Updated note",
+  "important": true
+}
