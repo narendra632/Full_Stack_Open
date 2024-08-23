@@ -34,8 +34,8 @@ const Note = mongoose.model('Note', noteSchema)
 
 // To fetch data from the database
 Note.find({}).then(result => {
-    result.forEach(note => {
-      console.log(note)
-    })
-    mongoose.connection.close()
+  result.forEach(note => {
+    console.log(note)
   })
+  mongoose.connection.close()
+})

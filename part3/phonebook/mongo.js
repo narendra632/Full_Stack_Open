@@ -26,7 +26,7 @@ const person = new Person({
     number: process.argv[4],
 })
 
-person.save().then(result => {
+person.save().then(() => {
     console.log(`added ${person.name} number ${person.number} to phonebook`)
 })
 
@@ -36,4 +36,4 @@ Person.find({}).then(result => {
         console.log(person.name, person.number)
     })
     mongoose.connection.close()
-}) 
+})

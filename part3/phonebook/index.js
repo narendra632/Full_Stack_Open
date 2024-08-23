@@ -9,19 +9,19 @@ const app = express()
 
 
 morgan.token('postData', function (response) {
-    if (response.method === 'POST') {
-        return JSON.stringify(response.body)
-    } else {
-        return null
-    }
+  if (response.method === 'POST') {
+    return JSON.stringify(response.body)
+  } else {
+    return null
+  }
 })
 
 const requestLogger = (request, response, next) => {
-    console.log('Method:', request.method)
-    console.log('Path:', request.path)
-    console.log('Body:', request.body)
-    console.log('---')
-    next()    
+  console.log('Method:', request.method)
+  console.log('Path:', request.path)
+  console.log('Body:', request.body)
+  console.log('---')
+  next()
 }
 
 
@@ -29,6 +29,7 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'))
+app.use(requestLogger)
 
 
 app.get('/info', (request, response, next) => {
@@ -73,7 +74,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
         .then((person) => {
             if (!person) {
-                response.status(404).send(id + ' not found')
+                response.status(404).send('not found')
             } else {
                 response.status(204).send(`${person.name} has been deleted`)
             }
@@ -104,7 +105,7 @@ app.post('/api/persons', (request, response, next) => {
 
 // Update a person
 app.put('/api/persons/:id', (request, response, next) => {
-    const {name, number} = request.body
+    const { name, number } = request.body
 
     if(!name || !number) {
         const missing = !name ? 'name' : 'number'
@@ -114,7 +115,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndUpdate(
         request.params.id,
         { name, number },
-        { new: true , runValidators: true, context: 'query'}
+        { new: true , runValidators: true, context: 'query' }
     )
         .then(updatedPerson => {
             response.status(200).json(updatedPerson)
@@ -132,7 +133,6 @@ app.use(unknownEndpoint)
 const errorHandler = (error, request, response, next) => {
     console.log('errorHandler',error.message)
     console.error(error.message)
-    
     if (error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id' })
     } else if (error.name === 'ValidationError') {

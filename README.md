@@ -29,6 +29,7 @@
 5) You can use tools like postman or plugin like Rest Client to test your operational requests on resources.
 6) For security, requests from other origins are restricted, but we can implement to allow requests from others origins using Cross-Origin Resourse Sharing(CORS) middleware. npm install cors.
 7) To make a build of your frontend optimized for production run command npm run build.
+8) Linting tools like ESlint does the static analysis of the code and points out the errors.
 
 
 ## All commands used
@@ -64,3 +65,7 @@
 
 # To make a production build
 1) npm run build
+
+# Install ESlint 
+1) As dev dependency: npm install eslint @eslint/js --save-dev
+2) configure eslint: npx eslint --init
