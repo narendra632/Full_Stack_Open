@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 mongoose.set('strictQuery', false)
 
@@ -16,8 +17,21 @@ mongoose.connect(url)
     })
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name:{
+        type: String,
+        required: true,
+        minLength: 3
+    },
+    number:{
+        type: String,
+        validate: {
+            validator: function(v) {
+                return /0[0-9]{1,2}-[0-9]{7,}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`,
+        },
+        required: [true, 'User phone number is required']
+    }
 })
 
 personSchema.set('toJSON', {

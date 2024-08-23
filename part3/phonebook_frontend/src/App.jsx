@@ -10,6 +10,7 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [message, setMessage] = useState({ type: null, content: null })
+  const [numberFormat, setNumberFormat] = useState(false)
 
   useEffect(() => {
     personService
@@ -27,6 +28,7 @@ const App = () => {
   const handlePhoneChange = (event) => {
     console.log(event.target.value)
     setNewPhone(event.target.value)
+    setNumberFormat(/0[0-9]{1,2}-[0-9]{7,}/.test(event.target.value))
   }
 
   const handleFilterChange = (event) => {
@@ -50,6 +52,11 @@ const App = () => {
             setMessage({ type: 'success', content: `Updated ${newName}` })
             clearNotification()
           })
+          .catch(error => {
+            console.log(error)
+            setMessage({ type: 'error', content: error.response.data.error || 'Error occured...'})
+            clearNotification()
+          })
       }
     }
     else {
@@ -62,6 +69,11 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
           setMessage({ type: 'success', content: `Added ${newName}` })
+          clearNotification()
+        })
+        .catch(error => {
+          console.log(error)
+          setMessage({ type: 'error', content: error.response.data.error || 'Error occured...'})
           clearNotification()
         })
     }
