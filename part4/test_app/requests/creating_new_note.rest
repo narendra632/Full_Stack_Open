@@ -1,0 +1,37 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+  "content": "New note",
+  "important": false
+}
+
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+  "content": "Another note",
+  "important": true
+}
+
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+  "content": "Yet another note to mongodb",
+  "important": true
+}
+
+
+###
+PUT http://localhost:3001/api/notes/66c20143d9d9212115805aa7
+Content-Type: application/json
+
+{
+  "content": "Updated note",
+  "important": true
+}
