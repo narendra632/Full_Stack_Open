@@ -22,7 +22,7 @@
 6) Effect hook - Effects let a component connect to and synchronize with external systems. It takes two parameters, first the effect itself and second is used to specify how many times the effect should run.
 
 ## part 3
-1) express more pleasing interface to work with built-in http module. It provides better abstraction for general use cases we usually requre to build a backend server.
+1) express provides a more pleasing interface to work with built-in http module. It provides better abstraction for general use cases we usually requre to build a backend server.
 2) Nodemon - It automatically restarts your node application whenever it detects any changes in the files in the directory where nodemon is started.
 3) Representational State Transfer(REST): It is an architectural style meant for building scalable web applications. It states that every resource must have a unique URL.
 4) we can perform different operations on resources. ex: GET,POST,DELETE, PUT, PATCH.

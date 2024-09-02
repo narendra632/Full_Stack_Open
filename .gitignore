@@ -7,3 +7,5 @@ part3/test_app/.env
 part3/phonebook/.env
 part4/test_app/.env
 part4/test_app/node_modules
+part4/blog_list/node_modules
+part4/blog_list/.env
