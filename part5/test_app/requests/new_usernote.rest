@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY2ZDU4Y2Y4ZDIyNTNjYjQzOGFkNzNkYiIsImlhdCI6MTcyNTI3OTgxNn0.rWtDxd0Jbwz2prF-_MDP3vTEk4EVjM-x1GgnmlhKrjA
+
+{
+  "content": "New second Note added with user",
+  "important": false
+}

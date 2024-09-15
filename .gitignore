@@ -9,3 +9,6 @@ part4/test_app/.env
 part4/test_app/node_modules
 part4/blog_list/node_modules
 part4/blog_list/.env
+part5/test_app/.env
+part5/test_app/node_modules
+part5/test_app_frontend/node_modules
