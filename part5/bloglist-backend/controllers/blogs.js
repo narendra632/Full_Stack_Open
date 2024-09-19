@@ -1,16 +1,20 @@
 const blogRouter = require('express').Router();
-const jwt = require('jsonwebtoken');
 
 const Blog = require('../models/blog');
-const User = require('../models/user');
+const Comment = require('../models/comment');
 const middlewares = require('../utils/middlewares');
 
 blogRouter.get('/', async (request, response) => {
-    const blogs = await Blog.find({}).populate('user', {
-        username: 1,
-        name: 1,
-        id: 1,
-    });
+    const blogs = await Blog.find({})
+        .populate('user', {
+            username: 1,
+            name: 1,
+            id: 1,
+        })
+        .populate('comments', {
+            content: 1,
+            id: 1,
+        });
     response.status(200).json(blogs);
 });
 
@@ -35,11 +39,21 @@ blogRouter.post('/', middlewares.userExtractor, async (request, response) => {
     const savedBlog = await blog.save();
     user.blogs = [...user.blogs, savedBlog];
     await user.save();
-    response.status(201).json(savedBlog);
+    response.status(201).json(
+        await savedBlog.populate('user', {
+            username: 1,
+            name: 1,
+            id: 1,
+        })
+    );
 });
 
 blogRouter.get('/:id', async (request, response) => {
-    const blog = await Blog.findById(request.params.id);
+    const blog = await Blog.findById(request.params.id).populate('user', {
+        username: 1,
+        name: 1,
+        id: 1,
+    });
     if (blog) {
         response.status(200).json(blog);
     } else {
@@ -66,33 +80,56 @@ blogRouter.delete(
                 .status(401)
                 .json({ error: 'only the creater of the blog can delete it' });
         }
-        await blog.remove();
+        await Blog.findByIdAndDelete(request.params.id);
         response.status(204).end();
     }
 );
 
 blogRouter.put('/:id', async (request, response) => {
-    const { author, url, likes, title } = request.body;
+    const { author, url, likes, title, user } = request.body;
 
-    if (!author || !url || !title || !likes) {
+    if (!author || !url || !title || !likes || !user) {
         return response.status(400).json({
-            error: 'make sure all required fields are sent (title, author, url, likes)',
+            error: 'make sure all required fields are sent (title, author, url, likes, user)',
         });
     }
 
-    const blog = { url, author, title, likes };
+    const blog = { url, author, title, likes, user };
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
         new: true,
         runValidators: true,
         context: 'query',
-    });
+    })
+        .populate('user', {
+            username: 1,
+            name: 1,
+            id: 1,
+        })
+        .populate('comments', {
+            id: 1,
+            content: 1,
+        });
 
     if (updatedBlog) {
         response.status(201).json(updatedBlog);
     } else {
         response.status(400).json({
-            error: `No person with this id: '${request.params.id}'`,
+            error: `No blog with this id: '${request.params.id}'`,
         });
     }
+});
+
+blogRouter.post('/:id/comments', async (request, response) => {
+    const { content } = request.body;
+    const comment = new Comment({
+        content,
+        blog: request.params.id,
+    });
+
+    const savedComment = await comment.save();
+    const blog = await Blog.findById(request.params.id);
+    blog.comments = [...blog.comments, savedComment];
+    await blog.save();
+    response.status(201).json(savedComment);
 });
 module.exports = blogRouter;
